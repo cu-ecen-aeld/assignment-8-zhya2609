@@ -8,6 +8,12 @@ cd `dirname $0`
 test_dir=`pwd`
 echo "starting test with SKIP_BUILD=\"${SKIP_BUILD}\" and DO_VALIDATE=\"${DO_VALIDATE}\""
 
+# Fix GitHub known_hosts issue inside the autotest docker container
+if [ -f ~/.ssh/known_hosts ]; then
+    ssh-keygen -f ~/.ssh/known_hosts -R "github.com" || true
+    ssh-keyscan github.com >> ~/.ssh/known_hosts || true
+fi
+
 # This part of the script always runs as the current user, even when
 # executed inside a docker container.
 # See the logic in parse_docker_options for implementation
