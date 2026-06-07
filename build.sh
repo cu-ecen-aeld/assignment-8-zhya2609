@@ -12,6 +12,9 @@ git submodule update
 set -e 
 cd `dirname $0`
 
+echo "DEBUG: SSH_AUTH_SOCK is $SSH_AUTH_SOCK"
+ssh-add -l || echo "ssh-add failed"
+
 if [ ! -e buildroot/.config ]
 then
 	echo "MISSING BUILDROOT CONFIGURATION FILE"
