@@ -13,6 +13,10 @@ if [ -f ~/.ssh/known_hosts ]; then
     ssh-keygen -f ~/.ssh/known_hosts -R "github.com" || true
     ssh-keyscan github.com >> ~/.ssh/known_hosts || true
 fi
+if [ -f /root/.ssh/known_hosts ]; then
+    ssh-keygen -f /root/.ssh/known_hosts -R "github.com" || true
+    ssh-keyscan github.com >> /root/.ssh/known_hosts || true
+fi
 
 # This part of the script always runs as the current user, even when
 # executed inside a docker container.
